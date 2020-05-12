@@ -1,5 +1,4 @@
 #include "QInt.h"
-#include"QInt.h"
 bool isOutRange;
 QInt::QInt() {
 	for (int i = 0; i < 4; i++)
