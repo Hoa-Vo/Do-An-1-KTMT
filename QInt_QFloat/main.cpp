@@ -1,4 +1,5 @@
 ﻿#include"QInt.h"
+#include"QFloat.h"
 #include<conio.h>
 #include<fstream>
 #include<unordered_map>
@@ -164,6 +165,19 @@ int main(int argc, char* argv[]) {
 					outFile << endl;
 				}
 			}
+		}
+	}
+	else {
+		string s;
+		while (!inFile.eof()) {
+			getline(inFile, s);
+			if (s[0] == '\n')
+				s.erase(0, 1);
+			b = whichCase(s);
+			QFloat x;
+			ScanQFloat(inFile, x, stoi(b[0]), b[2]);
+			PrintQFloat(outFile, x, stoi(b[1]));
+			outFile << endl;
 		}
 	}
 	cout << "Complete!!!";

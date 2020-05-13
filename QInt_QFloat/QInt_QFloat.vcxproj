@@ -138,11 +138,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Float.cpp" />
+    <ClCompile Include="Int.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QFloat.cpp" />
     <ClCompile Include="QInt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Float.h" />
+    <ClInclude Include="Int.h" />
     <ClInclude Include="QFloat.h" />
     <ClInclude Include="QInt.h" />
   </ItemGroup>
