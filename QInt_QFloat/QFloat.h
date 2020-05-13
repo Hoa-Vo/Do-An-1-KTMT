@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include<iostream>
 #include<string>
 #include"Float.h"
@@ -13,6 +13,10 @@ public:
 	QFloat();
 	friend istream& ScanQFloat(istream& inDev, QFloat& x, int type, string s);
 	friend ostream& PrintQFloat(ostream& outDev, QFloat& x, int type);
+	//hàm người dùng nhập
+	friend void userInputFloat(QFloat&x,int type,string s);
+	//Hàm xuất cho người dùng
+	friend void userOutputFloat(QFloat&x,int type);
 	void stringToQFloat(string s);
 	string QFloatToStrDec();
 	string decToBin(string s);

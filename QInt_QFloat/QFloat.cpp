@@ -5,6 +5,27 @@ QFloat::QFloat() {
 		this->data[i] = 0;
 	}
 }
+void userInputFloat(QFloat& x, int type,string s){
+	if (type == 10) {
+		x.stringToQFloat(s);
+	}
+	else {
+		int idx = 0;
+		for (int i = 0; i < 128; i++) {
+			if (s[idx++] == '1')
+				x.setBit(x.data[i / 32], i % 32);
+		}
+	}
+}
+void userOutputFloat(QFloat& x, int type) {
+	if (type == 10) {
+       cout << x.QFloatToStrDec();
+	}
+	else {
+		for (int i = 0; i < 128; ++i)
+			cout << x.getBit(x.data[i / 32], i % 32);
+	}
+}
 istream& ScanQFloat(istream& inDev, QFloat& x, int type, string s) {
 	if (type == 10) {
 		x.stringToQFloat(s);

@@ -595,3 +595,96 @@ bool toQInt(bool result[], QInt& temp) {
 	}
 	return true;
 }
+void userInput(QInt& x, int type){
+	string str;
+	cout << "Nhap he " + to_string(type) + ":";
+	cin >> str;
+	isOutRange = false;
+	if (type == 2) {
+		for (int i = str.size() - 1; i >= 0; i--) {
+			int temp = str.size() - 1 - i;
+			x.data[3 - temp / 32] = (str[i] == '1') ?
+				setBit1(x.data[3 - temp / 32], temp % 32) :
+				setBit0(x.data[3 - temp / 32], temp % 32);
+		}
+	}
+	if (type == 10) {
+		int indexBit = 0;
+		bool negative = false;//check if mumber is negative
+		if (str.front() == '-') {
+			negative = true;
+			str.erase(0, 1);
+		}
+		while (str != "") {
+			int temp = str.back() - '0';
+			if (temp % 2) {
+				x.data[3 - indexBit / 32] = setBit1(x.data[3 - indexBit / 32], indexBit % 32);
+				str.back()--;
+			}
+			else {
+				x.data[3 - indexBit / 32] = setBit0(x.data[3 - indexBit / 32], indexBit % 32);
+			}
+			str = dev2(str);
+			indexBit++;
+		}
+		if (negative)
+			x = twoComplement(x);
+	}
+	if (type == 16) {
+		unordered_map<char, string> HexBin;
+		setHexToBin(HexBin);
+		int indexBit = 0;
+		for (int i = str.length() - 1; i >= 0; i--) {
+			for (int j = 3; j >= 0; j--) {
+				x.data[3 - indexBit / 32] = HexBin[str[i]][j] == '1' ?
+					setBit1(x.data[3 - indexBit / 32], indexBit % 32) :
+					setBit0(x.data[3 - indexBit / 32], indexBit % 32);
+				indexBit++;
+			}
+		}
+	}
+}
+void userOutput(QInt& x, int type){
+	string result;
+	cout << "He "+ to_string(type)+": ";
+	if (isOutRange) {
+		cout << "Ket qua tran so!!!";
+	}
+	if (type == 10) {
+		result = "0";
+		for (int i = 0; i < 128; i++) {
+			if (getBit(x.data[3 - i / 32], i % 32) && i == 127)
+				result = subtTwoString(pow2(i), result);
+			if (getBit(x.data[3 - i / 32], i % 32) && i != 127)
+				result = addTwoString(result, pow2(i));
+		}
+	}
+	if (type == 2) {
+		result.resize(128);
+		for (int i = 0; i < 128; i++) {
+			int temp = 127 - i;
+			result[i] = (char)(getBit(x.data[3 - temp / 32], temp % 32) + '0');
+		}
+		while (result[0] == '0') {
+			result.erase(0, 1);
+		}
+	}
+	if (type == 16) {
+		result.resize(32);
+		unordered_map<string, char> BinHex;
+		setBinToHex(BinHex);
+		int indexBit = 127;
+		for (int i = 0; i < 32; i++) {
+			string str;
+			for (int j = 0; j < 4; j++) {
+				str.push_back((char)(getBit(x.data[3 - indexBit / 32], indexBit % 32) + '0'));
+				indexBit--;
+			}
+			result[i] = BinHex[str];
+		}
+		while (result[0] == '0') {
+			result.erase(0, 1);
+		}
+	}
+	cout << result << endl;
+}

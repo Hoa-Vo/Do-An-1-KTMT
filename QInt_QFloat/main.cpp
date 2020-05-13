@@ -1,5 +1,4 @@
-﻿#include"QInt.h"
-#include"QFloat.h"
+﻿#include"Calculator.h"
 #include<conio.h>
 #include<fstream>
 #include<unordered_map>
@@ -8,12 +7,13 @@
 vector<int> position(string s);
 vector<string> whichCase(string s);
 int main(int argc, char* argv[]) {
+	if (argv[1]==nullptr) {
+		Calculator c;
+		c.run();
+		return 0;
+	}
 	ifstream inFile(argv[1], ifstream::in);
 	ofstream outFile(argv[2], ofstream::out);
-	//ifstream inFile;
-	//ofstream outFile;
-	//inFile.open("QInt_input.txt");
-	//outFile.open("QInt_output.txt");
 	if (!inFile.is_open()) {
 		cout << "Can't open file!!!" << endl;
 		return 0;
@@ -127,15 +127,15 @@ int main(int argc, char* argv[]) {
 					break;
 				}
 				case 10: {
-					result = x < y;
-					break;
-				}
-				case 11: {
 					z = x & y;
 					break;
 				}
-				case 12: {
+				case 11: {
 					z = x | y;
+					break;
+				}
+				case 12: {
+					z = x ^ y;
 					break;
 				}
 				case 13: {

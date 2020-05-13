@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include<iostream>
 #include<fstream>
 #include<string>
@@ -17,7 +17,11 @@ public:
 	friend	istream& ScanQInt(istream& inDev, QInt& x, int type, string str);
 	//xuat QInt theo he 2, 10, 16(bien type)
 	friend	ostream& PrintQInt(ostream& outDev, QInt& x, int type);
-	//phep toan cong
+	//Hàm cho người dùng nhập
+	friend void userInput(QInt& x, int type);
+	//Hàm xuất cho người dùng
+	friend void userOutput(QInt& x, int type);
+	//phep toan x + y
 	friend	QInt& operator+(QInt x, QInt y);
 	//lay so bu 2 cua x
 	friend  QInt& twoComplement(QInt x);
